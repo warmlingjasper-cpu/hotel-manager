@@ -52,7 +52,21 @@ def room_update(request, pk):
         {
             "form": form
         }  
+    )
 
+def room_delete(request, pk):
+    room = get_object_or_404(Room, pk=pk)
+
+    if request.method == "POST":
+        room.delete()
+        return redirect("room_list")
+
+    return render(
+        request,
+        "rooms/room_confirm_delete.html",
+        {
+            "room": room
+        }
     )
     
 
