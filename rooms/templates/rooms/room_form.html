@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Room</title>
+</head>
+<body>
+
+<h1>Create Room</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-succes">
+        Save
+    </button>
+
+    <a href="{% url 'room_list' %}">
+        Back
+    </a>
+</form>
+</body>
+</html>

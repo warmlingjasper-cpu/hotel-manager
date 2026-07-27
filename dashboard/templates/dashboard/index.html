@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Rooms</h5>
+                <h2>{{ rooms }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Guests</h5>
+                <h2>{{ guests }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5>Reservations</h5>
+                <h2>{{ reservations }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

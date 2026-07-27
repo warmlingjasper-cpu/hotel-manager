@@ -10,11 +10,16 @@ class Room(models.Model):
     number = models.IntegerField(unique=True)
     room_type = models.CharField(max_length=50)
     capacity = models.IntegerField()
-    price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
-
-    status = models.CharField(max_length=2,
+    price_per_night = models.DecimalField(
+        max_digits=8, 
+        decimal_places=2
+    )
+    status = models.CharField(
+        max_length=2,
         choices=Status.choices,
-        default=Status.CLEAN)
+        default=Status.CLEAN
+        )
+    
     def __str__(self):
         return f"Room {self.number}"
 

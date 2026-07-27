@@ -1,10 +1,16 @@
 from django.db import models
+from rooms.models import Room
+from guests.models import Guest
 
-class Reservations(models.Model):
-    Room_number = models.CharField(max_length=50)
-    Guest = models.CharField(max_length=50)
-    Check_in_date = models.DateField()
-    Check_out_date = models.DateField()
+
+class Reservation(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    guest = models.ForeignKey(Guest, on_delete=models.CASCADE)
+    check_in = models.DateField()
+    check_out = models.DateField()
+    adults = models.PositiveIntegerField(default=1)
+    children = models.PositiveIntegerField(default=0)
+
 
     def __str__(self):
-        return f"{Guest} {Room_number} {Check_in_date} {Check_out_date}"
+        return f"{self.guest} - Room {self.room.number}"
