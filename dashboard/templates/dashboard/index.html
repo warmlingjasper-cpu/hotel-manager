@@ -1,40 +1,217 @@
 {% extends "base.html" %}
-
-{% block title %}
-Dashboard
-{% endblock %}
-
 {% block content %}
 
 <h2>Dashboard</h2>
 
-<div class="row">
+<form method="GET" class="row align-items-center mb-4">
 
-    <div class="col-md-4">
-        <div class="card">
+    <div class="col-auto">
+
+    <a href="?date={{ previous_date }}"
+       class="btn btn-outline-primary">
+        &laquo;
+    </a>
+
+    </div>
+
+    <div class="col-auto">
+
+        <input
+            type="date"
+            class="form-control"
+            name="date"
+            value="{{ selected_date }}"
+            onchange="this.form.submit()">
+        </input>   
+
+    </div>
+
+
+    <div class="col-auto">
+
+    <a href="?date={{ next_date }}"
+       class="btn btn-outline-primary">
+        &raquo;
+    </a>
+
+    </div>
+
+</form>
+
+<h5 class="mb-4">
+    {{ selected_date_long }}
+</h5>
+
+<div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3 mb-4">
+
+    <div class="col">
+        <div class="card text-center h-100">
             <div class="card-body">
-                <h5>Rooms</h5>
+                <h6 class="text-secondary">Rooms</h6>
                 <h2>{{ rooms }}</h2>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
+   <div class="col">
+
+    <a href="{% url 'available_rooms' %}?date={{ selected_date }}"
+       class="available-link text-decoration-none text-reset">
+
+        <div class="card available-card text-center h-100">
+
             <div class="card-body">
-                <h5>Guests</h5>
-                <h2>{{ guests }}</h2>
+
+                <h6 class="available-title">
+                    Available
+                </h6>
+
+                <h2>{{ available_rooms }}</h2>
+
+            </div>
+
+        </div>
+
+    </a>
+
+</div>
+
+    <div class="col">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <h6 class="text-secondary">In House</h6>
+                <h2>{{ inhouse_count }}</h2>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card">
+    <div class="col">
+        <div class="card text-center h-100">
             <div class="card-body">
-                <h5>Reservations</h5>
-                <h2>{{ reservations }}</h2>
+                <h6 class="text-secondary">Check-ins</h6>
+                <h2>{{ checkins_count }}</h2>
             </div>
         </div>
+    </div>
+
+    <div class="col">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <h6 class="text-secondary">Check-outs</h6>
+                <h2>{{ checkouts_count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <h6 class="text-secondary">Occupancy</h6>
+                <h2>{{ occupancy }}%</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div class="card h-100">
+
+            <div class="card-header">
+                Check-in
+            </div>
+
+            <div class="card-body">
+
+                {% for reservation in checkins %}
+
+                    <a href="{% url 'reservation_update' reservation.pk %}"
+                        class="text-decoration-none text-reset">
+                    
+                        <div class="dashboard-reservation">
+                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+                        </div>
+                    </a>
+
+                {% empty %}
+
+                    <p>No arrivals.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card h-100">
+
+            <div class="card-header">
+                In House
+            </div>
+
+            <div class="card-body">
+
+                {% for reservation in inhouse %}
+
+                    <a href="{% url 'reservation_update' reservation.pk %}"
+                        class="text-decoration-none text-reset">
+                    
+                        
+                        <div class="dashboard-reservation">
+                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+                        </div>
+                    </a>
+
+                {% empty %}
+
+                    <p>No guests.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card h-100">
+
+            <div class="card-header">
+                Check-out
+            </div>
+
+            <div class="card-body">
+
+                {% for reservation in checkouts %}
+                    
+                    <a href="{% url 'reservation_update' reservation.pk %}"
+                        class="text-decoration-none text-reset">
+                    
+                        
+                        <div class="dashboard-reservation">
+                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+                        </div>
+                    </a>
+                    
+                {% empty %}
+
+                    <p>No departures.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

@@ -6,4 +6,5 @@ urlpatterns = [
     path("new/", views.room_create, name="room_create"),
     path("<int:pk>/edit/", views.room_update, name='room_update'),
     path("<int:pk>/delete/", views.room_delete, name='room_delete'),
+    path("available/", views.available_rooms, name="available_rooms",),
 ]

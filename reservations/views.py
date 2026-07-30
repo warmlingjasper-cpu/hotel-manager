@@ -44,13 +44,13 @@ def reservation_create(request):
 def reservation_update(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     if request.method == "POST":
-        form = ReservationForm(request.POST, instance=Reservation)
+        form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
             return redirect("reservation_list")
 
     else:
-        form = ReservationForm(instance=Reservation)
+        form = ReservationForm(instance=reservation)
 
     return render(
         request,

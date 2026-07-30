@@ -96,3 +96,135 @@ body.dark-mode tbody tr {
 body.dark-mode tbody tr:hover {
     background-color: #374255;
 }
+
+/* ---------- CARDS ---------- */
+
+.card{
+    background: #2d3748;
+    border:1px solid #4a5568;
+    border-radius:14px;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translatey(-3px);
+    box-shadow:0 8px 18px rgba(0,0,0,.25);
+}
+
+/* ---------- STATUS ---------- */
+
+.badge-clean {
+    background-color: #2f855a;
+    color: white;
+}
+
+.badge-dirty {
+    background-color: #c05656;
+    color: white;
+}
+
+.badge-blocked {
+    background-color: #6b7280;
+    color: white;
+}
+
+.badge-inspected {
+    background-color: #d69e2e;
+    color: #1a202c;
+}
+
+/* ---------- TIPOGRAFIA ---------- */
+
+h1{
+    front-weight:700;
+    letter-spacing:.5px;
+}
+
+h2{
+    font-weight:700;
+    letter_spacing:.3px;
+    margin-botton:25px;
+}
+
+th{
+    font-weight:600;
+}
+
+/* ---------- BOTÕES AZUIS ---------- */
+
+.btnprimary{
+    background:#2563eb
+    border-color:#2563eb
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+    border-color:#1d4ed8;
+}
+
+.btn-outline-primary{
+    color:#60a5fa;
+    border-color:#60a5fa;
+}
+
+.btn-outline-primary:hover{
+    background:#2563eb;
+    border-color:#2563eb;
+}
+
+/* ---------- TABELAS ---------- */
+
+.table tbody tr{
+    transition: .2s;
+}
+
+.table tbody tr:hover{
+    background:#3b4557;
+}
+
+/* ---------- DASHBOARD ---------- */
+
+.dashboard-reservation{
+    transition: .2s;
+    border: 1px solid #495057;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.dashboard-reservation:hover{
+    background-color: rgba(255,255,255,.06);
+    border-color:#6c757d;
+    transform: translatey(-2px);
+    cursor:pointer;
+}
+
+/* ---------- AVAILABLE CARD ---------- */
+
+.available-title{
+    color:#6c757d;
+    transition:.2s;
+}
+
+.available-card{
+    transition: .2s;
+}
+
+.available-card:hover h6,
+.available-card:hover h2{
+    color: #60a5fa;
+}
+
+.available-link .available-card{
+    transition: .2s;
+}
+
+.available-link:hover .available-card{
+    border-color:#60a5fa;
+    transform:translateY(-2px)
+}
+
+.available-link:hover .available-title,
+.available-link:hover h2{
+    color:#60a5fa;
+}

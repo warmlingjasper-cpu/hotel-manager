@@ -32,9 +32,9 @@
 
     <tr>
         <th>Number</th>
-        <th>Type</th>
+        <th>Tipology</th>
         <th>Capacity</th>
-        <th>Price</th>
+        <th>Rate</th>
         <th>Status</th>
         <th>Actions</th>
     </tr>
@@ -47,24 +47,18 @@
         <td>{{ room.price_per_night }}</td>
         <td>
             {% if room.status == "CL" %}
-            <span class="badge bg-success">
-                {{ room.get_status_display }}
-            </span>
-
+            <span class="badge badge-clean">Clean</span>
+                
             {% elif room.status == "DI" %}
-            <span class="badge bg-danger">
-                {{ room.get_status_display }}
-            </span>
+            <span class="badge badge-dirty">Dirty</span>
+                
 
             {% elif room.status == "IN" %}
-            <span class="badge bg-warning text-dark">
-                {{ room.get_status_display }}
-            </span>
-
-            {% elif room.status == "BL" %}
-            <span class="badge bg-secondary">
-                {{ room.get_status_display }}
-            </span>
+            <span class="badge badge-inspected">Inspected</span>
+                
+            {% elif room.status == "BL" %}      
+            <span class="badge badge-blocked">Blocked</span>
+                
             {% endif %}
 
         </td>

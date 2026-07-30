@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Room
 from .forms import RoomForm
 from django.db.models import Q
+from datetime import date
+from reservations.models import Reservation
 
 def room_list(request):
     search = request.GET.get("search", "")
@@ -74,6 +76,33 @@ def room_delete(request, pk):
         {
             "room": room
         }
+    )
+
+def available_rooms(request):
+
+    selected_date = request.GET.get("date")
+
+    if selected_date:
+        selected_date = date.fromisoformat(selected_date)
+    else:
+        selected_date = date.today()
+
+    occupied_rooms = Reservation.objects.filter(
+        check_in__lte=selected_date,
+        check_out__gt=selected_date
+    ).values_list("room_id", flat=True)
+
+    rooms = Room.objects.exclude(
+        id__in=occupied_rooms
+    ).order_by("number")
+    
+    return render(
+        request,
+        "rooms/available_rooms.html",
+        {
+            "rooms": rooms,
+            "selected_date": selected_date,
+        },
     )
     
 
