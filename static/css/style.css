@@ -1,0 +1,98 @@
+/* ---------- TEMA CLARO ---------- */
+
+body {
+    background-color: #f5f7fa;
+    color: #212529;
+    transition: 0.3s;
+}
+
+.card,
+.table,
+.form-control,
+.form-select {
+    transition: 0.3s;
+}
+
+/* ---------- TEMA ESCURO ---------- */
+
+body.dark-mode {
+    background-color: #1f2937;
+    color: #f8f9fa;
+}
+
+body.dark-mode .container {
+    color: #f8f9fa;
+}
+
+body.dark-mode .card {
+    background-color: #2d3748;
+    color: white;
+    border: 1px solid #495057;
+}
+
+body.dark-mode table {
+    color: white;
+    background-color: #2d3748;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+    background-color: #2d3748;
+    border-color: #495057;
+}
+
+body.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #34495e;
+}
+
+body.dark-mode .table-striped > tbody > tr:nth-of-type(even) {
+    background-color: #2c3e50;
+}
+
+body.dark-mode th {
+    color: #ffffff;
+}
+
+body.dark-mode td {
+    color: #f8f9fa;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #495057;
+    color: white;
+    border: 1px solid #6c757d;
+}
+
+body.dark-mode input::placeholder {
+    color: #ced4da;
+}
+
+body.dark-mode .btn-outline-primary {
+    color: #7db4ff;
+    border-color: #7db4ff;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+    background: #7db4ff;
+    color: #111;
+}
+
+body.dark-mode thead {
+    background-color: #303b4d;
+}
+
+body.dark-mode th {
+    color: white;
+    border-color: #445066;
+}
+
+body.dark-mode tbody tr {
+    background-color: #2b3444;
+}
+
+
+body.dark-mode tbody tr:hover {
+    background-color: #374255;
+}

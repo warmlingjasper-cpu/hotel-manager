@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Room
 from .forms import RoomForm
-
+from django.db.models import Q
 
 def room_list(request):
-    rooms = Room.objects.all().order_by("number")
+    search = request.GET.get("search", "")
+    rooms = Room.objects.all()
 
+    if search:
+        rooms = rooms.filter(
+            Q(number__icontains=search) |
+            Q(room_type__icontains=search)
+        )
+  
     return render(
         request,
         "rooms/room_list.html",

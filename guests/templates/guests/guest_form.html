@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h2>Add Guest</h2>
+
+<form method="POST">
+    
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-sucess">
+        Save
+    </button>
+
+    <a href="{% url 'guest_list' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+
+</form>
+
+{% endblock %}
