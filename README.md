@@ -68,6 +68,31 @@ User Interface
 <img width="1153" height="569" alt="image" src="https://github.com/user-attachments/assets/4b23fa07-8352-49ab-9b00-88c3dd72555c" />
 <img width="1213" height="589" alt="image" src="https://github.com/user-attachments/assets/5aee0349-b124-4f15-9b8f-92c0c8b3814b" />
 
+Project Structure
+
+hotel_manager/
+│
+├── dashboard/
+├── guests/
+├── reservations/
+├── rooms/
+├── templates/
+├── static/
+└── manage.py
+
+
+Future Improvements
+
+- User authentication and role-based permissions
+- PDF reports
+- Excel export
+
+Author
+
+Lucas Warmling Jasper
+LinkedIn: http://linkedin.com/in/lucaswarmlingjasper
+GitHub: https://github.com/warmlingjasper-cpu
+
 
 
 
