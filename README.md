@@ -79,7 +79,7 @@ Project Structure
 - static/
 - manage.py
 
-- Online: https://hotel-manager-u2t9.onrender.com/
+Online Render: https://hotel-manager-u2t9.onrender.com/
 
 Future Improvements
 
