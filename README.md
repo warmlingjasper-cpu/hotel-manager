@@ -60,7 +60,7 @@ User Interface
 - Simple and intuitive navigation
 
 
-<img width="1101" height="577" alt="image" src="https://github.com/user-attachments/assets/7d4efc2b-fa50-44d3-8ccf-e91729ab5078" />
+<img width="1229" height="617" alt="image" src="https://github.com/user-attachments/assets/7bc09908-2af3-4db1-bc91-ee52ee29a0f6" />
 <img width="1209" height="625" alt="image" src="https://github.com/user-attachments/assets/2adf689b-6fc4-48aa-a7ac-ae0ca3f122e3" />
 <img width="1177" height="561" alt="image" src="https://github.com/user-attachments/assets/18c9f9e8-5965-4ba7-b500-211014355202" />
 <img width="1269" height="629" alt="image" src="https://github.com/user-attachments/assets/58994646-03be-4ee2-8785-78fa1b723d02" />
