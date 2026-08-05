@@ -70,15 +70,14 @@ User Interface
 
 Project Structure
 
-hotel_manager/
-│
-├── dashboard/
-├── guests/
-├── reservations/
-├── rooms/
-├── templates/
-├── static/
-└── manage.py
+- hotel_manager/
+- dashboard/
+- guests/
+- reservations/
+- rooms/
+- templates/
+- static/
+- manage.py
 
 
 Future Improvements
@@ -90,7 +89,7 @@ Future Improvements
 Author
 
 Lucas Warmling Jasper
-LinkedIn: http://linkedin.com/in/lucaswarmlingjasper
+LinkedIn: http://linkedin.com/in/lucaswarmlingjasper,
 GitHub: https://github.com/warmlingjasper-cpu
 
 
