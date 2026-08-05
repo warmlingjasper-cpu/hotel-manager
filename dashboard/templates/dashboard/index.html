@@ -7,32 +7,25 @@
 
     <div class="col-auto">
 
-    <a href="?date={{ previous_date }}"
-       class="btn btn-outline-primary">
-        &laquo;
-    </a>
+        <a href="?date={{ previous_date }}" class="btn btn-outline-primary">
+            &laquo;
+        </a>
 
     </div>
 
     <div class="col-auto">
 
-        <input
-            type="date"
-            class="form-control"
-            name="date"
-            value="{{ selected_date }}"
-            onchange="this.form.submit()">
-        </input>   
+        <input type="date" class="form-control" name="date" value="{{ selected_date }}" onchange="this.form.submit()">
+        </input>
 
     </div>
 
 
     <div class="col-auto">
 
-    <a href="?date={{ next_date }}"
-       class="btn btn-outline-primary">
-        &raquo;
-    </a>
+        <a href="?date={{ next_date }}" class="btn btn-outline-primary">
+            &raquo;
+        </a>
 
     </div>
 
@@ -53,28 +46,28 @@
         </div>
     </div>
 
-   <div class="col">
+    <div class="col">
 
-    <a href="{% url 'available_rooms' %}?date={{ selected_date }}"
-       class="available-link text-decoration-none text-reset">
+        <a href="{% url 'available_rooms' %}?date={{ selected_date }}"
+            class="available-link text-decoration-none text-reset">
 
-        <div class="card available-card text-center h-100">
+            <div class="card available-card text-center h-100">
 
-            <div class="card-body">
+                <div class="card-body">
 
-                <h6 class="available-title">
-                    Available
-                </h6>
+                    <h6 class="available-title">
+                        Available
+                    </h6>
 
-                <h2>{{ available_rooms }}</h2>
+                    <h2>{{ available_rooms }}</h2>
+
+                </div>
 
             </div>
 
-        </div>
+        </a>
 
-    </a>
-
-</div>
+    </div>
 
     <div class="col">
         <div class="card text-center h-100">
@@ -118,22 +111,40 @@
 
     <div class="col-md-4">
 
-        <div class="card h-100">
+    <div class="card h-100">
 
-            <div class="card-header">
-                Check-in
-            </div>
+        <div class="card-header">
+            Check-in
+        </div>
 
-            <div class="card-body">
+        <div class="card-body">
+
+            <div id="checkin-content">
 
                 {% for reservation in checkins %}
 
-                    <a href="{% url 'reservation_update' reservation.pk %}"
-                        class="text-decoration-none text-reset">
-                    
+                    <a href="{% url 'reservation_update' reservation.pk %}?next=dashboard"
+                       class="text-decoration-none text-reset">
+
                         <div class="dashboard-reservation">
-                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+
+                            {% if reservation.room.status == "CL" %}
+                                <span class="status-dot dot-clean"></span>
+                            {% elif reservation.room.status == "DI" %}
+                                <span class="status-dot dot-dirty"></span>
+                            {% elif reservation.room.status == "IN" %}
+                                <span class="status-dot dot-inspected"></span>
+                            {% elif reservation.room.status == "BL" %}
+                                <span class="status-dot dot-blocked"></span>
+                            {% elif reservation.room.status == "OC" %}
+                                <span class="status-dot dot-occupied"></span>
+                            {% endif %}
+
+                            <strong>{{ reservation.room.number }}</strong>
+                            {{ reservation.guest }}
+
                         </div>
+
                     </a>
 
                 {% empty %}
@@ -144,9 +155,41 @@
 
             </div>
 
+            <div id="checkin-done" style="display:none;">
+
+                {% for reservation in completed_checkins %}
+
+                    <div class="dashboard-reservation">
+
+                        <strong>{{ reservation.room.number }}</strong>
+                        {{ reservation.guest }}
+
+                    </div>
+
+                {% empty %}
+
+                    <p>No completed check-ins.</p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="card-footer text-center">
+
+            <a href="#"
+               id="toggleCheckins"
+               class="dashboard-footer-link"
+               onclick="toggleCheckins(); return false;">
+                Done ({{ completed_checkins|length }})
+            </a>
+
         </div>
 
     </div>
+
+</div>
 
     <div class="col-md-4">
 
@@ -160,18 +203,18 @@
 
                 {% for reservation in inhouse %}
 
-                    <a href="{% url 'reservation_update' reservation.pk %}"
-                        class="text-decoration-none text-reset">
-                    
-                        
-                        <div class="dashboard-reservation">
-                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
-                        </div>
-                    </a>
+                <a href="{% url 'reservation_update' reservation.pk %}?next=dashboard"
+                    class="text-decoration-none text-reset">
+
+
+                    <div class="dashboard-reservation">
+                        <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+                    </div>
+                </a>
 
                 {% empty %}
 
-                    <p>No guests.</p>
+                <p>No guests.</p>
 
                 {% endfor %}
 
@@ -190,30 +233,106 @@
             </div>
 
             <div class="card-body">
+                <div id="checkout-content">
 
                 {% for reservation in checkouts %}
-                    
-                    <a href="{% url 'reservation_update' reservation.pk %}"
-                        class="text-decoration-none text-reset">
-                    
-                        
-                        <div class="dashboard-reservation">
-                            <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
-                        </div>
-                    </a>
-                    
+
+                <a href="{% url 'reservation_update' reservation.pk %}?next=dashboard"
+                    class="text-decoration-none text-reset">
+
+
+                    <div class="dashboard-reservation">
+                        <strong>{{ reservation.room.number }}</strong> {{ reservation.guest }}
+                    </div>
+                </a>
+
                 {% empty %}
 
-                    <p>No departures.</p>
+                <p>No departures.</p>
 
                 {% endfor %}
 
+                </div>
+
+                <div id="checkout-done" style="display:none;">
+
+                {% for reservation in completed_checkouts %}
+
+                    <div class="dashboard-reservation">
+
+                        <strong>{{ reservation.room.number }}</strong>
+                        {{ reservation.guest }}
+
+                    </div>
+
+                {% empty %}
+
+                    <p>No completed check-outs.</p>
+
+                {% endfor %}
+                </div>
             </div>
 
+            <div class="card-footer text-center">
+
+                <a href="#"
+                id="toggleCheckouts"
+                class="dashboard-footer-link"
+                onclick="toggleCheckouts(); return false;">
+                    Done ({{ completed_checkouts|length }})
+                </a>
+
+            </div>     
         </div>
-
     </div>
-
+    
 </div>
+
+<script>
+function toggleCheckins() {
+
+    const pending = document.getElementById("checkin-content");
+    const completed = document.getElementById("checkin-done");
+    const button = document.getElementById("toggleCheckins");
+
+    if (completed.style.display === "none") {
+
+        pending.style.display = "none";
+        completed.style.display = "block";
+        button.innerHTML = "← Pending";
+
+    } else {
+
+        pending.style.display = "block";
+        completed.style.display = "none";
+        button.innerHTML = "Done ({{ completed_checkins|length }})";
+
+    }
+
+}
+
+function toggleCheckouts() {
+
+    const pending = document.getElementById("checkout-content");
+    const completed = document.getElementById("checkout-done");
+    const button = document.getElementById("toggleCheckouts");
+
+    if (completed.style.display === "none") {
+
+        pending.style.display = "none";
+        completed.style.display = "block";
+        button.innerHTML = "← Pending";
+
+    } else {
+
+        pending.style.display = "block";
+        completed.style.display = "none";
+        button.innerHTML = "Done ({{ completed_checkouts|length }})";
+
+    }
+
+}
+</script>
+
 
 {% endblock %}

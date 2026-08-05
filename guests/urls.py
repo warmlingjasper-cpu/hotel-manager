@@ -6,4 +6,5 @@ urlpatterns = [
     path("new/", views.guest_create, name="guest_create"),
     path("update/<int:pk>/", views.guest_update, name="guest_update"),
     path("delete/<int:pk>/", views.guest_delete, name="guest_delete"),
+    path("new-ajax/", views.guest_create_ajax, name="guest_create_ajax"),
     ]

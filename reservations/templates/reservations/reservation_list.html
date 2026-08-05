@@ -6,34 +6,36 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
 
-<a href="{% url 'reservation_create' %}" class="btn btn-primary mb-3">
-    + Add Reservation
-</a>
+    <a href="{% url 'reservation_create' %}" class="btn btn-primary mb-3">
+        + Add Reservation
+    </a>
 
-<form method="GET" class="mb-3">
-    <div class="input-group">
-        <input 
-            type="text"
-            name="search"
-            class="form-control"
-            placeholder="Search reservation..."
-            value="{{ request.GET.search }}">
+    <a href="{% url 'availability' %}" class="btn btn-outline-primary">
+        Availability
+    </a>
 
-        <button class="btn btn-outline-primary" type="submit">
-            Search
-        </button>
-    </div>
-</form>
+    <form method="GET" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search reservation..."
+                value="{{ request.GET.search }}">
+
+            <button class="btn btn-outline-primary" type="submit">
+                Search
+            </button>
+        </div>
+    </form>
 
 </div>
 
 <table class="table table-striped table-hover">
     <thead>
         <tr>
+            <th>ID</th>
             <th>Room</th>
             <th>Guest</th>
             <th>Check In</th>
             <th>Check Out</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -41,22 +43,53 @@
     <tbody>
         {% for reservation in reservations %}
         <tr>
+            <td>{{ reservation.id }}</td>
             <td>{{ reservation.room.number }}</td>
             <td>{{ reservation.guest }}</td>
             <td>{{ reservation.check_in }}</td>
             <td>{{ reservation.check_out }}</td>
 
             <td>
+                {% if reservation.status == "reserved" %}
+                <span style="color:#198754">●</span> Reserved
+
+                {% elif reservation.status == "checkin" %}
+                <span style="color:#5bc0de">●</span> In House
+
+                {% elif reservation.status == "checkout" %}
+                <span style="color:#dc3545">●</span> Check Out
+
+                {% elif reservation.status == "cancelled" %}
+                <span style="color:#6f42c1">●</span> Cancelled
+
+                {% endif %}
+            </td>
+
+            <td>
                 <a href="{% url 'reservation_update' reservation.pk %}" class="btn btn-outline-primary btn-sm">
                     Edit
                 </a>
-                <a href="{% url 'reservation_delete' reservation.pk %}" class="btn btn-outline-secondary btn-sm">
-                    Delete
+                <a href="{% url 'reservation_cancel' reservation.pk %}" class="btn btn-outline-secondary btn-sm">
+                    Cancel
                 </a>
+                {% if reservation.status == "reserved" %}
+                <a href="{% url 'reservation_checkin' reservation.id %}" class="btn btn-success btn-sm">
+                    Check-in
+                </a>
+                {% elif reservation.status == "checkin" %}
+                <a href="{% url 'reservation_checkout' reservation.id %}" class="btn btn-outline-secondary btn-sm">
+                    Check-out
+                </a>
+                {% elif reservation.status == "checkout" %}
+                <span class="badge bg-secondary">Checked Out</span>
+                {% elif reservation.status == "cancelled" %}
+                <span class="badge bg-secondary">Cancelled</span>
+                {% endif %}
+
             </td>
 
         </tr>
-        {% empty %}
+            {% empty %}
         <tr>
             <td colspan="5">
                 No reservations found.

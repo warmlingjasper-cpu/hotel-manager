@@ -99,11 +99,16 @@ body.dark-mode tbody tr:hover {
 
 /* ---------- CARDS ---------- */
 
-.card{
-    background: #2d3748;
-    border:1px solid #4a5568;
-    border-radius:14px;
-    transition:.25s;
+/* Modo claro */
+.card {
+    background: #ffffff;
+    color: #212529;
+}
+
+/* Modo escuro */
+body.dark-mode .card {
+    background: #313b4d;
+    color: #f8f9fa;
 }
 
 .card:hover{
@@ -114,7 +119,7 @@ body.dark-mode tbody tr:hover {
 /* ---------- STATUS ---------- */
 
 .badge-clean {
-    background-color: #2f855a;
+    background-color: #2563eb;
     color: white;
 }
 
@@ -129,8 +134,8 @@ body.dark-mode tbody tr:hover {
 }
 
 .badge-inspected {
-    background-color: #d69e2e;
-    color: #1a202c;
+    background-color: #2f855a;
+    color: white;
 }
 
 /* ---------- TIPOGRAFIA ---------- */
@@ -227,4 +232,111 @@ th{
 .available-link:hover .available-title,
 .available-link:hover h2{
     color:#60a5fa;
+}
+
+/* ---------- STATUS CORES ---------- */
+
+.status-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.dot-clean {
+    background: #0d6efd;
+}
+
+.dot-inspected {
+    background: #198754;
+}
+
+.dot-dirty {
+    background: #dc3545;
+}
+
+.dot-blocked {
+    background: #6fa2c1;
+}
+
+.dot-occupied {
+    background: #5bc0de;
+}
+
+/* ---------- MODAL DARK MODE ---------- */
+
+.dark-mode .modal-content {
+    background-color: #2b3035;
+    color: #ffffff;
+    border: 1px solid #495057;
+}
+
+.dark-mode .modal-header,
+.dark-mode .modal-footer {
+    border-color: #495057;
+}
+
+.dark-mode .modal-title {
+    color: #ffffff;
+}
+
+.dark-mode .modal-body {
+    color: #ffffff;
+}
+
+.dark-mode .modal-close {
+    filter:invert(1);
+}
+
+.dark-mode .modal input,
+.dark-mode .modal select,
+.dark-mode .modal textarea {
+    background-color: #343a40;
+    color: white;
+    border 1px solid #495057;
+}
+
+
+.dark-mode .modal input:focus,
+.dark-mode .modal select:focus,
+.dark-mode .modal textarea:focus {
+    background-color: #343a40;
+    color: white;
+    border color #86b7fe;
+    box-shadow: none;
+}
+
+.dark-mode .modal label {
+    color: #ffffff
+}
+
+/* ---------- DASHBOARD FOOTER ---------- */
+
+.dashboard-footer-link {
+    color: #9aa4b2;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.dashboard-footer-link:hover {
+    color: #d8dee9;
+}
+
+/* ---------- ICON DARK/LIGHT MODE ---------- */
+#theme-toggle {
+    border: none;
+    background: transparent;
+}
+
+#theme-toggle i {
+    color: #adb5bd;
+    font-size: 1.1rem;
+    transition: .2s;
+}
+
+#theme-toggle:hover i {
+    color: #ffffff;
 }

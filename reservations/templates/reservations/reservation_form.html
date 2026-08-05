@@ -5,7 +5,54 @@
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {% for error in form.non_field_errors %}
+        <p class="mb-0">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label class="form-label">Reservation ID:</label>
+        {{ reservation.id }}
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">Guest</label>
+        {{ form.guest }}
+
+        <button
+            type="button"
+            class="btn btn-outline-primary"
+            id="newGuestBtn">
+            + New Guest
+        </button>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Room type</label>
+        {{ form.room_type }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Check in</label>
+        {{ form.check_in }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Check out</label>
+        {{ form.check_out }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Room</label>
+        {{ form.room }}
+    </div>
+
+
 
     <button type="submit" class="btn btn-primary">
         Save
@@ -14,6 +61,164 @@
     <a href="{% url 'reservation_list' %}" class="btn btn-secondary">
         Cancel
     </a>
+    {% if reservation.status == "reserved" %}
+    <a href="{% url 'reservation_checkin' reservation.id %}?next={{ next }}" class="btn btn-success btn-sm">
+        Check-in
+    </a>
+    {% elif reservation.status == "checkin" %}
+    <a href="{% url 'reservation_checkout' reservation.id %}?next={{ next }}" class="btn btn-outline-secondary btn-sm">
+        Check-out
+    </a>
+    {% elif reservation.status == "checkout" %}
+    <span class="badge bg-secondary">Checked Out</span>
+    {% elif reservation.status == "cancelled" %}
+    <span class="badge bg-secondary">Cancelled</span>
+    {% endif %}
+
 </form>
+
+<script>
+
+    function updateRooms() {
+
+        const checkIn = document.getElementById("id_check_in").value;
+        const checkOut = document.getElementById("id_check_out").value;
+        const roomType = document.getElementById("id_room_type").value;
+        const roomSelect = document.getElementById("id_room");
+
+        if (!checkIn || !checkOut || !roomType) {
+            return;
+        }
+
+        fetch(`/reservations/available-rooms/?check_in=${checkIn}&check_out=${checkOut}&room_type=${roomType}&reservation_id={{ reservation.id|default:'' }}`)
+            .then(response => response.json())
+            .then(data => {
+
+                roomSelect.innerHTML = "";
+
+                const empty = document.createElement("option");
+                empty.value = "";
+                empty.text = "---------";
+                roomSelect.appendChild(empty);
+
+                data.forEach(room => {
+
+                    const option = document.createElement("option");
+
+                    option.value = room.id;
+                    let dot = "";
+
+                    switch (room.status) {
+                        case "CL":
+                            dot = "🔵";
+                            break;
+                        case "IN":
+                            dot = "🟢";
+                            break;
+                        case "DI":
+                            dot = "🔴";
+                            break;
+                        case "OC":
+                            dot = "🟠";
+                            break;
+                        case "BL":
+                            dot = "⚫";
+                            break;
+                        default:
+                            dot = "⚪";
+                    }
+
+                    option.text = `${dot} Room ${room.number}`;
+
+                    roomSelect.appendChild(option);
+
+                });
+
+            });
+
+    }
+
+    document.getElementById("id_check_in").addEventListener("change", updateRooms);
+    document.getElementById("id_check_out").addEventListener("change", updateRooms);
+    document.getElementById("id_room_type").addEventListener("change", updateRooms);
+
+    updateRooms();
+</script>
+
+<div class="modal fade" id="guestModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">New Guest</h5>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal">
+            </button>
+            </div>
+            <div class="modal-body" id="guestModalBody">
+                Loading...
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+window.addEventListener("load", function () {
+
+    const guestModal = new bootstrap.Modal(
+        document.getElementById("guestModal")
+    );
+
+    document
+    .getElementById("newGuestBtn")
+    .addEventListener("click", function () {
+
+        console.log("Botão clicado!");
+
+        fetch("{% url 'guest_create_ajax' %}")
+                .then(response => response.text())
+                .then(html => {
+                    console.log(html);
+                    document.getElementById("guestModalBody").innerHTML = html;
+                    guestModal.show();
+                    const guestForm = document.getElementById("guestForm");
+                    console.log(guestForm);
+                    guestForm.addEventListener("submit", function (e) {
+                        e.preventDefault();
+                        fetch("{% url 'guest_create_ajax' %}", {
+                            method: "POST",
+                            body: new FormData(guestForm)
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.success) {
+                                const guestSelect = document.getElementById("id_guest");
+                                const option = new Option(
+                                    data.name,
+                                    data.id,
+                                    true,
+                                    true
+                                );
+
+                                guestSelect.add(option);
+                                guestSelect.value = data.id;
+                                guestModal.hide();
+
+                            } else {
+                                console.log(data.errors);
+                            }
+                        });
+                           
+                    });
+                });
+        });
+    });
+
+</script>
 
 {% endblock %}

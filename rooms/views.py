@@ -89,7 +89,11 @@ def available_rooms(request):
 
     occupied_rooms = Reservation.objects.filter(
         check_in__lte=selected_date,
-        check_out__gt=selected_date
+        check_out__gt=selected_date,
+        status__in=[
+            Reservation.Status.RESERVED,
+            Reservation.Status.CHECKIN,
+        ],
     ).values_list("room_id", flat=True)
 
     rooms = Room.objects.exclude(

@@ -1,14 +1,22 @@
 from django.db import models
 
 class Room(models.Model):
+    class RoomType(models.TextChoices):
+        CLASSIC = "Classic", "Classic"
+
     class Status(models.TextChoices):
         CLEAN = "CL", "Clean"
         DIRTY = "DI", "Dirty"
         INSPECTED = "IN", "Inspected"
         BLOCKED = "BL", "Blocked"
+        OCCUPIED = "OC", "occupied"
 
     number = models.IntegerField(unique=True)
-    room_type = models.CharField(max_length=50)
+    room_type = models.CharField(
+        max_length=20,
+        choices=RoomType.choices
+        )
+    
     capacity = models.IntegerField()
     price_per_night = models.DecimalField(
         max_digits=8, 
