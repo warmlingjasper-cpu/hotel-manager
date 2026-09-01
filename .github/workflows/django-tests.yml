@@ -8,6 +8,7 @@ name: Django CI/CD
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -22,3 +23,7 @@ jobs:
 
       - name: Run Django tests
         run: python manage.py test
+
+      - name: Deploy to Render
+        if: success()
+        run: curl "$\{\{ secrets.RENDER_DEPLOY_HOOK \}\}"
