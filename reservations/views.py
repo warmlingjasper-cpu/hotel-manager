@@ -5,6 +5,7 @@ from django.db.models import Q
 from rooms.models import Room
 from django.http import JsonResponse
 from datetime import date, timedelta
+from django.contrib import messages
 
 
 def reservations_list(request):
@@ -37,6 +38,7 @@ def reservation_create(request):
         form = ReservationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Reservation created successfully!")
             return redirect("reservation_list")
 
     else:
@@ -56,6 +58,7 @@ def reservation_update(request, pk):
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
+            messages.success(request, "Reservation updated successfully!")
             return redirect("reservation_list")
 
     else:
@@ -83,6 +86,7 @@ def reservation_cancel(request, pk):
     if request.method == "POST":
         reservation.status = Reservation.Status.CANCELLED
         reservation.save()
+        messages.success(request, "Reservation canceled successfully!")
         return redirect("reservation_list")
 
     return render(

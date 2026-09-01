@@ -9,7 +9,7 @@ class Room(models.Model):
         DIRTY = "DI", "Dirty"
         INSPECTED = "IN", "Inspected"
         BLOCKED = "BL", "Blocked"
-        OCCUPIED = "OC", "occupied"
+        OCCUPIED = "OC", "Occupied"
 
     number = models.IntegerField(unique=True)
     room_type = models.CharField(
