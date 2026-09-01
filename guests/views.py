@@ -3,6 +3,7 @@ from .models import Guest
 from .forms import GuestForm
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib import messages
 
 def guest_list(request):
     search = request.GET.get("search", "")
@@ -35,6 +36,7 @@ def guest_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Guest created successfully!")
             return redirect("guest_list")
 
     else:
@@ -53,6 +55,7 @@ def guest_delete(request, pk):
 
     if request.method == "POST":
         guest.delete()
+        messages.success(request, "Guest deleted successfully!")
         return redirect("guest_list")
 
     return render(
@@ -67,6 +70,7 @@ def guest_update(request, pk):
         form = GuestForm(request.POST, instance=guest)
         if form.is_valid():
             form.save()
+            messages.success(request, "Guest updated successfully!")
             return redirect("guest_list")
 
     else:
