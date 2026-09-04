@@ -30,10 +30,14 @@ SECRET_KEY = 'django-insecure-m5nbtsjh@gmp5refcma#+xbvq6j)xr217=46oe_!__&g#=^*dp
 DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get(
-    "hotel-manager-u2t9.onrender.com",
+    "ALLOWED_HOSTS",
     "127.0.0.1,localhost"
 ).split(",")
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
