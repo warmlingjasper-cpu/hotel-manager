@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-m5nbtsjh@gmp5refcma#+xbvq6j)xr217=46oe_!__&g#=^*dp
 DEBUG = False
 
 ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS",
+    "hotel-manager-u2t9.onrender.com",
     "127.0.0.1,localhost"
 ).split(",")
 
