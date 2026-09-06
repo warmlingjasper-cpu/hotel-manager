@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Hotel Manager</title>
+</head>
+
+<body>
+    <div class="container py-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-md-5">
+
+                <div class="card shadow-sm">
+
+                    <div class="card-body p-4">
+
+                        <h1 class="h3 text-center mb-4">
+                            Login
+                        </h1>
+
+                        <form method="post">
+
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                <label for="username" class="form-label">
+                                    User
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="username"
+                                    id="username"
+                                    class="form-control"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    class="form-control"
+                                    required
+                                >
+                            </div>
+
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error }}
+                                </div>
+                            {% endif %}
+
+                            <button
+                                type="submit"
+                                class="btn btn w-100"
+                            >
+                                Login
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+

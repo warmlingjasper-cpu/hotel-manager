@@ -111,4 +111,4 @@ def guest_create_ajax(request):
         {
             "form": form
         },
-    )
+    ]
