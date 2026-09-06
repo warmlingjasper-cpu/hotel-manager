@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rooms',
     'guests',
     'reservations',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,6 +128,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Authentication
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/

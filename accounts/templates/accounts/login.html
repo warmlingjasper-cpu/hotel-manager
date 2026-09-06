@@ -1,11 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eng" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login | Hotel Manager</title>
+    <title>
+        {% block title %}
+        Login | Hotel Manager
+        {% endblock %}
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
@@ -20,7 +29,7 @@
                     <div class="card-body p-4">
 
                         <h1 class="h3 text-center mb-4">
-                            Login
+                            Login | Hotel Manager
                         </h1>
 
                         <form method="post">
@@ -63,7 +72,7 @@
 
                             <button
                                 type="submit"
-                                class="btn btn w-100"
+                                class="btn btn-primary w-100"
                             >
                                 Login
                             </button>

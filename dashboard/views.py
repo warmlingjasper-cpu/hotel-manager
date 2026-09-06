@@ -3,7 +3,9 @@ from rooms.models import Room
 from guests.models import Guest
 from reservations.models import Reservation
 from datetime import date, timedelta
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
 
     selected_date = request.GET.get("date")
