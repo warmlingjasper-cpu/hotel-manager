@@ -29,7 +29,7 @@ def room_list(request):
 @login_required
 def room_create(request):
 
-    if not request.user.has_perm("reservations.change_reservation"):
+    if not request.user.has_perm("reservations.add_room"):
         return HttpResponseForbidden()
 
     if request.method == "POST":
