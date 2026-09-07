@@ -20,21 +20,49 @@
 
 <body>
     <div class="container mt-4">
-
         <h1>Hotel Manager</h1>
 
-        <nav class="mb-4">
-            <a class="btn btn-outline-primary" href="{% url 'dashboard' %}">Dashboard</a> |
-            <a class="btn btn-outline-primary" href="{% url 'room_list' %}">Rooms</a> |
-            <a class="btn btn-outline-primary" href="{% url 'guest_list' %}">Guests</a> |
-            <a class="btn btn-outline-primary" href="{% url 'reservation_list' %}">Reservations</a> |
+        <div class="d-flex justify-content-between align-items-center py-3">
 
-            <button id="theme-toggle" class="btn btn-dark btn-sm">
-                <i class="bi bi-moon"></i>
-            </button>
+            <nav class="mb-4">
+                <a class="btn btn-outline-primary" href="{% url 'dashboard' %}">Dashboard</a> |
+                <a class="btn btn-outline-primary" href="{% url 'room_list' %}">Rooms</a> |
+                <a class="btn btn-outline-primary" href="{% url 'guest_list' %}">Guests</a> |
+                <a class="btn btn-outline-primary" href="{% url 'reservation_list' %}">Reservations</a> |
 
-        </nav>
+                <button id="theme-toggle" class="btn btn-dark btn-sm">
+                    <i class="bi bi-moon"></i>
+                </button>
 
+            </nav>
+
+
+            <div class="dropdown d-inline-block">
+
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-person-circle"></i>
+                    Hi, {{ user.username }}
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">
+                            <i class="bi bi-box-arrow-right me-2"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
 
         {% if messages %}
 
@@ -48,15 +76,15 @@
 
         </div>
 
-    {% endfor %}
+        {% endfor %}
 
-    {% endif %}
+        {% endif %}
 
 
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock %}
+        {% endblock %}
 
     </div>
 
