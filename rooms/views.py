@@ -4,7 +4,10 @@ from .forms import RoomForm
 from django.db.models import Q
 from datetime import date
 from reservations.models import Reservation
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
+@login_required
 def room_list(request):
     search = request.GET.get("search", "")
     rooms = Room.objects.all()
@@ -23,8 +26,12 @@ def room_list(request):
         }
     )
 
-
+@login_required
 def room_create(request):
+
+    if not request.user.has_perm("reservations.change_reservation"):
+        return HttpResponseForbidden()
+
     if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
@@ -42,6 +49,7 @@ def room_create(request):
         }
     )
 
+@login_required
 def room_update(request, pk):
     room = get_object_or_404(Room, pk=pk)
 
@@ -63,8 +71,12 @@ def room_update(request, pk):
         }  
     )
 
+@login_required
 def room_delete(request, pk):
     room = get_object_or_404(Room, pk=pk)
+
+    if not request.user.has_perm("reservations.change_reservation"):
+        return HttpResponseForbidden()
 
     if request.method == "POST":
         room.delete()
@@ -78,6 +90,7 @@ def room_delete(request, pk):
         }
     )
 
+@login_required
 def available_rooms(request):
 
     selected_date = request.GET.get("date")

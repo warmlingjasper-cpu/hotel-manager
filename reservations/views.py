@@ -6,8 +6,9 @@ from rooms.models import Room
 from django.http import JsonResponse
 from datetime import date, timedelta
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def reservations_list(request):
     search = request.GET.get("search", "")
     reservations = Reservation.objects.all()
@@ -32,7 +33,7 @@ def reservations_list(request):
         }
     )
 
-
+@login_required
 def reservation_create(request):
     if request.method == "POST":
         form = ReservationForm(request.POST)
@@ -52,6 +53,7 @@ def reservation_create(request):
         }
     )
 
+@login_required
 def reservation_update(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     if request.method == "POST":
@@ -80,6 +82,7 @@ def reservation_update(request, pk):
             },
     ) 
 
+@login_required
 def reservation_cancel(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
 
@@ -95,6 +98,7 @@ def reservation_cancel(request, pk):
         {"reservation": reservation},
     ) 
 
+@login_required
 def reservation_checkin(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
 
@@ -112,6 +116,7 @@ def reservation_checkin(request, pk):
 
     return redirect("reservation_list")
 
+@login_required
 def reservation_checkout(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
 
@@ -129,6 +134,7 @@ def reservation_checkout(request, pk):
 
     return redirect("reservation_list")
 
+@login_required
 def available_rooms(request):
     check_in = request.GET.get("check_in")
     check_out = request.GET.get("check_out")
@@ -178,6 +184,7 @@ def available_rooms(request):
 
     return JsonResponse(data, safe=False)
 
+@login_required
 def availability(request):
     start = request.GET.get("start")
     end = request.GET.get("end")

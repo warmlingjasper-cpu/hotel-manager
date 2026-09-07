@@ -4,7 +4,9 @@ from .forms import GuestForm
 from django.db.models import Q
 from django.http import JsonResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def guest_list(request):
     search = request.GET.get("search", "")
     guests = Guest.objects.all().order_by("last_name", "first_name")
@@ -30,6 +32,7 @@ def guest_list(request):
         }
     )
 
+@login_required
 def guest_create(request):
     if request.method == "POST":
         form = GuestForm(request.POST)
@@ -50,6 +53,7 @@ def guest_create(request):
         }
     )
 
+@login_required
 def guest_delete(request, pk):
     guest = get_object_or_404(Guest, pk=pk)
 
@@ -64,6 +68,7 @@ def guest_delete(request, pk):
         {"guest": Guest},
     ) 
 
+@login_required
 def guest_update(request, pk):
     guest = get_object_or_404(Guest, pk=pk)
     if request.method == "POST":
@@ -85,6 +90,7 @@ def guest_update(request, pk):
             },
     ) 
 
+@login_required
 def guest_create_ajax(request):
     if request.method == "POST":
         form = GuestForm(request.POST)
