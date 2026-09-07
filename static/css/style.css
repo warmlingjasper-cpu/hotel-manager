@@ -141,14 +141,14 @@ body.dark-mode .card {
 /* ---------- TIPOGRAFIA ---------- */
 
 h1{
-    front-weight:700;
+    font-weight:700;
     letter-spacing:.5px;
 }
 
 h2{
     font-weight:700;
-    letter_spacing:.3px;
-    margin-botton:25px;
+    letter-spacing:.3px;
+    margin-bottom:25px;
 }
 
 th{
@@ -157,9 +157,9 @@ th{
 
 /* ---------- BOTÕES AZUIS ---------- */
 
-.btnprimary{
-    background:#2563eb
-    border-color:#2563eb
+.btn-primary{
+    background:#2563eb;
+    border-color:#2563eb;
 }
 
 .btn-primary:hover{
@@ -295,7 +295,7 @@ th{
 .dark-mode .modal textarea {
     background-color: #343a40;
     color: white;
-    border 1px solid #495057;
+    border: 1px solid #495057;
 }
 
 
@@ -304,7 +304,7 @@ th{
 .dark-mode .modal textarea:focus {
     background-color: #343a40;
     color: white;
-    border color #86b7fe;
+    border-color #86b7fe;
     box-shadow: none;
 }
 

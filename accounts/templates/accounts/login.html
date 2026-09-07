@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="eng" data-bs-theme="dark">
+<html lang="eng">
 
 <head>
     <meta charset="UTF-8">
@@ -89,5 +89,12 @@
         </div>
 
     </div>
+
+<script>
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+</script>
+
 </body>
 
