@@ -5,11 +5,11 @@
 <h2 class="mb-3">Rooms</h2>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-
-    <a href="{% url 'room_create' %}" class="btn btn-primary">
-        + Add Room
-    </a>
-
+    {% if perms.rooms.add_room %}
+        <a href="{% url 'room_create' %}" class="btn btn-primary">
+            + Add Room
+        </a>
+    {% endif %}
 <form method="GET" class="mb-3">
     <div class="input-group">
         <input 
@@ -67,11 +67,11 @@
             <a href="{% url 'room_update' room.id %}" class="btn btn-outline-primary btn-sm">
                 Edit
             </a>
-
-            <a href="{% url 'room_delete' room.id %}" class="btn btn-outline-secondary btn-sm">
-                Delete
-            </a>
-
+            {% if perms.rooms.delete_room %}
+                <a href="{% url 'room_delete' room.id %}" class="btn btn-outline-secondary btn-sm">
+                    Delete
+                </a>
+            {% endif %}
         </td>
     </tr>
 

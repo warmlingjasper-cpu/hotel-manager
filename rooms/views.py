@@ -75,7 +75,7 @@ def room_update(request, pk):
 def room_delete(request, pk):
     room = get_object_or_404(Room, pk=pk)
 
-    if not request.user.has_perm("reservations.change_reservation"):
+    if not request.user.has_perm("reservations.delete_room"):
         return HttpResponseForbidden()
 
     if request.method == "POST":
