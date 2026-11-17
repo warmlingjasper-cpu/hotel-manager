@@ -4,6 +4,7 @@ from guests.models import Guest
 from reservations.models import Reservation
 from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 @login_required
 def index(request):
@@ -97,3 +98,16 @@ def index(request):
 
     return render(request, "dashboard/index.html", context)
 
+
+@user_passes_test(lambda user: user.is_superuser)
+def reservation_diagnostics(request):
+    today = date.today()
+
+    reservations = Reservation.objects.filter(
+        check_in__gte=today
+    ).order_by("check_in", "id")
+
+    return render(request, "dashboard/diagnostics.html", {
+        "today": today,
+        "reservations": reservations,
+    })

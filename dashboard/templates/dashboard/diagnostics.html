@@ -1,6 +1,6 @@
 <h1>Reservation Diagnostics</h1>
 
-<p>Today's date: {{ hoje }}</p>
+<p>Today's date: {{ today }}</p>
 
 <table border="1" cellpadding="8">
     <thead>
@@ -13,12 +13,12 @@
     </thead>
 
     <tbody>
-        {% for reserva in reservas %}
+        {% for reservation in reservations %}
             <tr>
-                <td>{{ reserva.id }}</td>
-                <td>{{ reserva.check_in }}</td>
-                <td>{{ reserva.check_out }}</td>
-                <td>{{ reserva.status }}</td>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.check_in }}</td>
+                <td>{{ reservation.check_out }}</td>
+                <td>{{ reservation.status }}</td>
             </tr>
         {% empty %}
             <tr>
