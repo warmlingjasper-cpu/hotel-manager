@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from datetime import date, timedelta
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 @login_required
 def reservations_list(request):
@@ -99,6 +100,7 @@ def reservation_cancel(request, pk):
     ) 
 
 @login_required
+@require_POST
 def reservation_checkin(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
 
@@ -108,15 +110,17 @@ def reservation_checkin(request, pk):
     reservation.status = Reservation.Status.CHECKIN
     reservation.save()
 
-    reservation.room.status = Room.Status.OCCUPIED
-    reservation.room.save()
+    if reservation.room:
+        reservation.room.status = Room.Status.OCCUPIED
+        reservation.room.save()
 
-    if request.GET.get("next") == "dashboard":
+    if request.POST.get("next") == "dashboard":
         return redirect("dashboard")
 
     return redirect("reservation_list")
 
 @login_required
+@require_POST
 def reservation_checkout(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
 
@@ -126,13 +130,15 @@ def reservation_checkout(request, pk):
     reservation.status = Reservation.Status.CHECKOUT
     reservation.save()
 
-    reservation.room.status = Room.Status.DIRTY
-    reservation.room.save()
+    if reservation.room:
+        reservation.room.status = Room.Status.DIRTY
+        reservation.room.save()
 
-    if request.GET.get("next") == "dashboard":
+    if request.POST.get("next") == "dashboard":
         return redirect("dashboard")
 
     return redirect("reservation_list")
+   
 
 @login_required
 def available_rooms(request):

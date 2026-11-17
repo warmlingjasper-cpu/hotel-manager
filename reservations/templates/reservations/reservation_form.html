@@ -61,21 +61,40 @@
     <a href="{% url 'reservation_list' %}" class="btn btn-secondary">
         Cancel
     </a>
-    {% if reservation.status == "reserved" %}
-    <a href="{% url 'reservation_checkin' reservation.id %}?next={{ next }}" class="btn btn-success btn-sm">
-        Check-in
-    </a>
-    {% elif reservation.status == "checkin" %}
-    <a href="{% url 'reservation_checkout' reservation.id %}?next={{ next }}" class="btn btn-outline-secondary btn-sm">
-        Check-out
-    </a>
-    {% elif reservation.status == "checkout" %}
-    <span class="badge bg-secondary">Checked Out</span>
-    {% elif reservation.status == "cancelled" %}
-    <span class="badge bg-secondary">Cancelled</span>
-    {% endif %}
+    
 
 </form>
+
+{% if reservation %}
+    <div class="mt-3">
+
+        {% if reservation.status == "reserved" %}
+            <form method="POST" action="{% url 'reservation_checkin' reservation.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <button type="submit" class="btn btn-success btn-sm">
+                    Check-in
+                </button>
+            </form>
+
+        {% elif reservation.status == "checkin" %}
+            <form method="POST" action="{% url 'reservation_checkout' reservation.id %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                    Check-out
+                </button>
+            </form>
+
+        {% elif reservation.status == "checkout" %}
+            <span class="badge bg-secondary">Checked Out</span>
+
+        {% elif reservation.status == "cancelled" %}
+            <span class="badge bg-secondary">Cancelled</span>
+        {% endif %}
+
+    </div>
+{% endif %}
 
 <script>
 
